@@ -23,9 +23,9 @@ public class FilterForLogger implements Filter {
                 return writer;
             }
         });
-        logger.log(writer.getCopy());
+//        logger.log(writer.getCopy());
     }
     public void destroy() {
-        code = null;
+//        code = null;
     }
 }

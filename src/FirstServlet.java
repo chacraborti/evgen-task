@@ -3,7 +3,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,23 +15,25 @@ public class FirstServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        PrintWriter out = resp.getWriter();
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<h1>Hi there</h1>");
-        out.println("</body>");
-        out.println("</html>");
-
-        writeToLog(req, resp);
+//        PrintWriter out = resp.getWriter();
+//        out.println("<html>");
+//        out.println("<body>");
+//        out.println("<h1>Hi there</h1>");
+//        out.println("</body>");
+//        out.println("</html>");
+      //  writeToLog(req, resp);
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        processRequest(req, resp);
         writeToLog(req, resp);
     }
 
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
+    }
 
 
     private void writeToLog(HttpServletRequest req, HttpServletResponse resp) {
@@ -40,7 +41,6 @@ public class FirstServlet extends HttpServlet {
         resp.getHeaderNames().stream().forEach(e -> logger.warning("request header from doGet: " + e.toString()));
 
         getRequestBodyInfo(req).entrySet().stream().forEach(e -> logger.warning("request body from doGet: " + e.toString()));
-        resp.
     }
     private Map<String, String> getRequestHeadersInfo(HttpServletRequest request) {
 
